@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentação do Plugin WP AI Comment Responder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #77aaff 3px solid;
+        }
+        header a {
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+        header ul {
+            padding: 0;
+            list-style: none;
+        }
+        header li {
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+        .main {
+            padding: 20px;
+            background: #fff;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .main h1, .main h2, .main h3 {
+            color: #333;
+        }
+        .main p {
+            margin: 10px 0;
+        }
+        .main code {
+            background: #f4f4f4;
+            padding: 2px 4px;
+            font-size: 90%;
+            color: #c7254e;
+        }
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Documentação do Plugin WP AI Comment Responder</h1>
+            <ul>
+                <li><a href="#instalacao">Instalação</a></li>
+                <li><a href="#ativacao-licenca">Ativação da Licença</a></li>
+                <li><a href="#configuracao">Configuração</a></li>
+                <li><a href="#opcoes-assistente">Opções de Assistente</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="main">
+            <section id="instalacao">
+                <h2>Instalação</h2>
+                <ol>
+                    <li><strong>Baixar o Plugin:</strong> Baixe o arquivo ZIP do plugin.</li>
+                    <li><strong>Instalar o Plugin:</strong>
+                        <ul>
+                            <li>Acesse o painel de administração do WordPress.</li>
+                            <li>Navegue até <code>Plugins > Adicionar Novo</code>.</li>
+                            <li>Clique em <code>Enviar Plugin</code> e selecione o arquivo ZIP baixado.</li>
+                            <li>Clique em <code>Instalar Agora</code>.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Ativar o Plugin:</strong> Após a instalação, clique em <code>Ativar Plugin</code>.</li>
+                </ol>
+            </section>
+
+            <section id="ativacao-licenca">
+                <h2>Ativação da Licença</h2>
+                <p>Para ativar a licença do plugin, siga os passos abaixo:</p>
+                <ol>
+                    <li>Acesse o painel de administração do WordPress.</li>
+                    <li>Navegue até <code>Configurações > WP AI Comment Responder</code>.</li>
+                    <li>Insira a chave da licença no campo <strong>Chave da Licença</strong>.</li>
+                    <li>Clique em <code>Ativar Licença</code>.</li>
+                </ol>
+            </section>
+
+            <section id="configuracao">
+                <h2>Configuração</h2>
+                <p>Para configurar o plugin, siga os passos abaixo:</p>
+                <ol>
+                    <li>Acesse o painel de administração do WordPress.</li>
+                    <li>Navegue até <code>Configurações > WP AI Comment Responder</code>.</li>
+                    <li>Preencha os seguintes campos:
+                        <ul>
+                            <li><strong>Chave da API OpenAI:</strong> Insira sua chave da API OpenAI.</li>
+                        </ul>
+                    </li>
+                    <li>Clique em <code>Salvar Alterações</code>.</li>
+                </ol>
+            </section>
+
+            <section id="opcoes-assistente">
+                <h2>Opções de Assistente</h2>
+                <p>O plugin oferece várias opções de assistente que podem ser configuradas:</p>
+                <ul>
+                    <li><strong>Usar Assistente:</strong> Marque esta opção para usar a API de assistants da OpenAI. Podendo subir arquivos e treinar seu assistente para melhor qualidade nas respostas.</li>
+                    <li><strong>ID do Assistente:</strong> Insira o ID do assistente.</li>
+                    <li><strong>Nome do Assistente:</strong> Crie um nome que será usado como nome de quem irá responder os comentários.</li>                    
+                    <li><strong>Habilitar Pesquisa de Arquivos:</strong> Caso esteja usando pesquisa de arquivos no seu assistente, marque esta opção.</li>
+                    <li><strong>Habilitar Interpretador de Código:</strong> Caso esteja usando o interpretador de código no seu assistente, marque essa opção.</li>
+                </ul>
+                <p>Essas opções podem ser configuradas na página de configurações do plugin.</p>
+            </section>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 WP AI Comment Responder. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
