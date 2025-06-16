@@ -1,5 +1,5 @@
 <?php
-// Adiciona a página de opções ao menu de administração
+// Add options page to the admin menu
 add_action('admin_menu', 'wpcr_add_admin_menu');
 add_action('admin_init', 'wpcr_settings_init');
 
@@ -87,7 +87,6 @@ function wpcr_settings_init() {
     }
 }
 
-// Função para renderizar o campo License Key
 function wpcr_license_key_render() {
     $options = get_option('wpcr_options');
     $license_key = isset($options['wpcr_license_key']) ? esc_attr($options['wpcr_license_key']) : '';
@@ -97,7 +96,6 @@ function wpcr_license_key_render() {
     <?php
 }
 
-// Função para renderizar o campo OpenAI API Key
 function wpcr_openai_api_key_render() {
     $options = get_option('wpcr_options');
     $api_key = isset($options['wpcr_openai_api_key']) ? esc_attr($options['wpcr_openai_api_key']) : '';
@@ -107,7 +105,6 @@ function wpcr_openai_api_key_render() {
     <?php
 }
 
-// Função para renderizar o campo Usar Assistente
 function wpcr_use_assistant_render() {
     $options = get_option('wpcr_options');
     $use_assistant = isset($options['wpcr_use_assistant']) ? $options['wpcr_use_assistant'] : '';
@@ -118,7 +115,6 @@ function wpcr_use_assistant_render() {
     <?php
 }
 
-// Função para renderizar o campo Assistant ID
 function wpcr_assistant_id_render() {
     $options = get_option('wpcr_options');
     $assistant_id = isset($options['wpcr_assistant_id']) ? esc_attr($options['wpcr_assistant_id']) : '';
@@ -128,7 +124,6 @@ function wpcr_assistant_id_render() {
     <?php
 }
 
-// Função para renderizar o campo Nome do Assistente
 function wpcr_assistant_name_render() {
     $options = get_option('wpcr_options');
     $assistant_name = isset($options['wpcr_assistant_name']) ? esc_attr($options['wpcr_assistant_name']) : '';
@@ -138,7 +133,6 @@ function wpcr_assistant_name_render() {
     <?php
 }
 
-// Função para renderizar o campo Habilitar File Search
 function wpcr_enable_file_search_render() {
     $options = get_option('wpcr_options');
     $enable_file_search = isset($options['wpcr_enable_file_search']) ? $options['wpcr_enable_file_search'] : '';
@@ -148,7 +142,6 @@ function wpcr_enable_file_search_render() {
     <?php
 }
 
-// Função para renderizar o campo Habilitar Code Interpreter
 function wpcr_enable_code_interpreter_render() {
     $options = get_option('wpcr_options');
     $enable_code_interpreter = isset($options['wpcr_enable_code_interpreter']) ? $options['wpcr_enable_code_interpreter'] : '';
@@ -158,7 +151,6 @@ function wpcr_enable_code_interpreter_render() {
     <?php
 }
 
-// Função para verificar a licença e exibir o link para o log de erros
 function wpcr_display_log_link() {
     $license_active = get_option('wpcr_license_active', false);
 
@@ -174,12 +166,9 @@ function wpcr_options_validate($input) {
     $new_license = $input['wpcr_license_key'];
     $license_valid = get_option('wpcr_license_active');
 
-    // Verifica se a nova licença é diferente da antiga
     if ($new_license !== $old_license || $license_valid != 1) {
-        // Tenta ativar a nova licença
         $activation_success = wpcr_activate_license($new_license);
         
-        // Atualiza a nova licença na base de dados, mesmo se a ativação falhar
         update_option('wpcr_license_key', $new_license);
 
         if ($activation_success) {            
@@ -203,7 +192,7 @@ function wpcr_activate_license($license_key) {
     
             if ($activate_license) {                
                 schedule_license_validity_check();
-                return true; // Licença ativada com sucesso
+                return true;
             } else {
                 wpcr_add_log("Falha na ativação da licença na API.");
                 return false;
@@ -236,16 +225,6 @@ function wpcr_settings_section_callback() {
     echo __('Configure as opções para o WP AI Comment Responder.', 'wpcr');
 }
 
-/*function custom_cron_schedules($schedules) {
-    $schedules['every_two_minutes'] = array(
-        'interval' => 120, // 2 minutos em segundos
-        'display' => __('Every 2 Minutes')
-    );
-    return $schedules;
-}
-add_filter('cron_schedules', 'custom_cron_schedules');*/
-
-// Função para agendar o evento de verificação de validade da licença
 function schedule_license_validity_check() {
     if(wp_next_scheduled( 'unique_plugin_name_license_validity' ) ) {
         wp_schedule_event( time(), 'daily', 'unique_plugin_name_license_validity' );        
@@ -270,7 +249,6 @@ function schedule_license_validity_check() {
     return $valid_status['is_valid'];
   }
 
-// Notificação de licença expirada
 function wpcr_license_expired_notice() {
     if (get_option('wpcr_license_key') && !get_option('wpcr_license_active')) {
         echo '<div class="notice notice-error">';
@@ -279,7 +257,6 @@ function wpcr_license_expired_notice() {
     }
 }
 
-// Garante que o aviso será exibido em todas as páginas do admin
 add_action('admin_notices', 'wpcr_license_expired_notice');
 
 add_action('admin_enqueue_scripts', 'wpcr_admin_scripts');

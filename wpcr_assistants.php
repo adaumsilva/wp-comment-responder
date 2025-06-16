@@ -46,9 +46,9 @@ function wpcr_get_openai_response($comment_content, $comment_id) {
     $enable_code_interpreter = isset($options['wpcr_enable_code_interpreter']) ? $options['wpcr_enable_code_interpreter'] : '';
 
     if (!empty($use_assistant)) {
-        // Lógica da API de Assistentes        
+        // Assistants API Logic        
 
-        // Passo 1: Criar um Thread
+        // Step 1: Creates a Thread
         $thread_response = wp_remote_post("https://api.openai.com/v1/threads", array(
             'headers' => array(
                 'Authorization' => 'Bearer ' . $api_key,
@@ -75,7 +75,7 @@ function wpcr_get_openai_response($comment_content, $comment_id) {
             return false;
         }    
 
-        // Passo 2: Adicionar uma Mensagem ao Thread
+        // Step 2: Add message to the Thread
         $message_response = wp_remote_post("https://api.openai.com/v1/threads/$thread_id/messages", array(
             'headers' => array(
                 'Authorization' => 'Bearer ' . $api_key,
@@ -93,7 +93,7 @@ function wpcr_get_openai_response($comment_content, $comment_id) {
             return false;
         }    
 
-        // Passo 3: Executar o Thread com o assistant_id
+        // Step 3: Execute Thread with the assistant_id
         $run_response = wp_remote_post("https://api.openai.com/v1/threads/$thread_id/runs", array(
             'headers' => array(
                 'Authorization' => 'Bearer ' . $api_key,
@@ -118,12 +118,12 @@ function wpcr_get_openai_response($comment_content, $comment_id) {
             return false;
         }    
 
-        // Agendar a primeira verificação do status da execução
+        // Schedule first verification with the execution status
         wp_schedule_single_event(time() + 10, 'wpcr_check_run_status', array($thread_id, $run_id, $comment_id));
 
         return true; 
     } else {
-        // Lógica da API de Completions        
+        // Completions API Logic        
 
         $messages = array(
             array("role" => "system", "content" => "Você é um assistente útil. Escreva com no máximo 250 tokens."),
@@ -157,7 +157,7 @@ function wpcr_get_openai_response($comment_content, $comment_id) {
             return false;
         }
 
-        // Agendar a verificação do status da API completions        
+        // Schedule verification of the completions API        
         wp_schedule_single_event(time() + 10, 'wpcr_check_completion_status', array($completion_body, $comment_id));
 
         return true;
@@ -175,7 +175,7 @@ function wpcr_check_completion_status_function($completion_body, $comment_id) {
 
     $assistant_reply = $completion_body['choices'][0]['message']['content'];
 
-    // Remover caracteres indesejados e formatar a resposta
+    // Remove odd characters and format response.
     $cleaned_reply = preg_replace('/【\d+:\d+†source】/', '', $assistant_reply);
 
     if ($cleaned_reply !== "1") {
@@ -186,7 +186,7 @@ function wpcr_check_completion_status_function($completion_body, $comment_id) {
             return false;
         }
 
-        // Obtenha o ID do administrador
+        // Get the admin ID
         $admin_user_id = get_option('admin_email');
         $admin_user = get_user_by('email', $admin_user_id);
 
@@ -301,13 +301,13 @@ function wpcr_check_run_status_function($thread_id, $run_id, $comment_id) {
         }
 
         if ($new_comment_id && !is_wp_error($new_comment_id)) {            
-            return $cleaned_reply; // Retorna a resposta correta
+            return $cleaned_reply; // Return correct response
         } else {
             wpcr_add_log("Erro ao inserir o comentário de resposta: " . print_r($new_comment_id, true));
             return false;
         }
     } else {
-        // Reagendar o cron se o status ainda não estiver concluído        
+        // Re-schedule cron if the status is not completed    
         wp_schedule_single_event(time() + 10, 'wpcr_check_run_status', array($thread_id, $run_id, $comment_id));
         return false;
     }

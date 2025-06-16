@@ -2,7 +2,7 @@
 /*
 Plugin Name: WP AI Comment Responder
 Plugin URI: https://estudarti.com.br/landing/plugin-wp-ai-comment-responder
-Description: Responde automaticamente a comentários usando a API da OpenAI com o modelo GPT-4o-mini e cron jobs.
+Description: Automatically respond to WordPress comments using OpenAI's GPT-4o-mini model. This plugin leverages AI to handle and reply to comments intelligently and efficiently, helping you maintain engagement without manual work.
 Version: 1.4.5
 Author: Adam Silva
 Author URI: https://www.estudarti.com.br
