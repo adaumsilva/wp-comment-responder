@@ -1,4 +1,8 @@
 <?php
+/**
+ * Integration with OPENAI Assistants and Completions API
+ */
+ 
 $options = get_option('wpcr_options');
     $api_key = isset($options['wpcr_openai_api_key']) ? $options['wpcr_openai_api_key'] : '';
     $assistant_id = isset($options['wpcr_assistant_id'])  ? $options['wpcr_assistant_id'] : '';
